@@ -1,0 +1,53 @@
+<template>
+  <div class="login_container">
+    <div class="login_box">
+      <div class="avatar_box">
+        <img src="../assets/img/logo.png" alt="">
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: 'Login'
+  }
+</script>
+
+<style lang="less" scoped>
+  .login_container {
+    height: 100%;
+    background: @background-color;
+
+    .login_box {
+      width: 450px;
+      height: 300px;
+      background-color: @white-color;
+      border-radius: 3px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+
+      .avatar_box {
+        height: 130px;
+        width: 130px;
+        border: 1px solid @gray-color;
+        border-radius: 50%;
+        padding: 10px;
+        box-shadow: 0 0 10px #ddd;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: @white-color;
+
+        img {
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+          background-color: @gray-color;
+        }
+      }
+    }
+  }
+</style>
