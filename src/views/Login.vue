@@ -1,9 +1,25 @@
 <template>
   <div class="login_container">
     <div class="login_box">
+      <!--   登陆 login   -->
       <div class="avatar_box">
         <img src="../assets/img/logo.png" alt="">
       </div>
+
+      <!--   登陆表单   -->
+      <el-form ref="form" class="login_form">
+        <el-form-item>
+          <el-input prefix-icon="iconfont icon-yonghu"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-input type="password" autocomplete="off" prefix-icon="iconfont icon-mima"></el-input>
+        </el-form-item>
+
+        <el-form-item class="btns">
+          <el-button type="primary">登陆</el-button>
+          <el-button type="info">重置</el-button>
+        </el-form-item>
+      </el-form>
     </div>
   </div>
 </template>
@@ -46,6 +62,19 @@
           height: 100%;
           border-radius: 50%;
           background-color: @gray-color;
+        }
+      }
+
+      .login_form {
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        padding: 0 20px;
+        box-sizing: border-box;
+
+        .btns {
+          display: flex;
+          justify-content: flex-end;
         }
       }
     }
