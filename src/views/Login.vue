@@ -78,8 +78,9 @@
           const { data: res } = await this.$http.post('login', this.loginForm)
           console.log(res)
           if (res.meta.status !== 200) {
-            console.log('登陆失败')
+            return this.$message.error("登陆失败")
           }
+          this.$message.success("登陆成功")
         })
       }
     }
