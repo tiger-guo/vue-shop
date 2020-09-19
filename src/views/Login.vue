@@ -7,12 +7,12 @@
       </div>
 
       <!--   登陆表单   -->
-      <el-form ref="form" class="login_form">
+      <el-form class="login_form" :model="loginForm">
         <el-form-item>
-          <el-input prefix-icon="iconfont icon-yonghu"></el-input>
+          <el-input prefix-icon="iconfont icon-yonghu" v-model="loginForm.userName"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-input type="password" autocomplete="off" prefix-icon="iconfont icon-mima"></el-input>
+          <el-input type="password" prefix-icon="iconfont icon-mima" v-model="loginForm.password"></el-input>
         </el-form-item>
 
         <el-form-item class="btns">
@@ -26,7 +26,15 @@
 
 <script>
   export default {
-    name: 'Login'
+    data () {
+      return {
+        // 登陆表单数据绑定对象
+        loginForm: {
+          userName: '',
+          password: '',
+        }
+      }
+    }
   }
 </script>
 
