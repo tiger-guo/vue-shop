@@ -91,7 +91,7 @@
 <style lang="less" scoped>
   .login_container {
     height: 100%;
-    background: @background-color;
+    background: @background-color-login;
 
     .login_box {
       width: 450px;
