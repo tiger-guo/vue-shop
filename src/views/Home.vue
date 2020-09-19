@@ -11,8 +11,8 @@
     },
     methods: {
       logout () {
-        window.sessionStorage.clear();
-        this.$router.push("/login");
+        window.sessionStorage.clear()
+        this.$router.push('/login')
       }
     }
   }

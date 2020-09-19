@@ -30,13 +30,13 @@ const router = new VueRouter({
 //    next 是一个函数，表示放行 [ next('/login') 表示强制跳转 ]
 router.beforeEach((to, from, next) => {
   if (to.path === '/login') {
-    return next();
+    return next()
   }
-  const tokenStr = window.sessionStorage.getItem('token');
+  const tokenStr = window.sessionStorage.getItem('token')
   if (!tokenStr) {
-    return next('/login');
+    return next('/login')
   }
-  next();
+  next()
 })
 
 export default router
