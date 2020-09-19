@@ -7,7 +7,7 @@
       </div>
 
       <!--   登陆表单   -->
-      <el-form class="login_form" :model="loginForm" :rules="loginFormRules">
+      <el-form class="login_form" :model="loginForm" :rules="loginFormRules" ref="loginFormRef">
         <el-form-item prop="username">
           <el-input prefix-icon="iconfont icon-yonghu" v-model="loginForm.username"></el-input>
         </el-form-item>
@@ -17,7 +17,7 @@
 
         <el-form-item class="btns">
           <el-button type="primary">登陆</el-button>
-          <el-button type="info">重置</el-button>
+          <el-button type="info" @click="resetLoginForm">重置</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -62,6 +62,11 @@
             }
           ],
         },
+      }
+    },
+    methods: {
+      resetLoginForm () {
+        this.$refs.loginFormRef.resetFields()
       }
     }
   }
