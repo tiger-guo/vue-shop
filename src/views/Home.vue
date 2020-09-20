@@ -9,9 +9,10 @@
     </el-header>
 
     <el-container>
-      <el-aside width="200px">
-
-        <el-menu background-color="#333744" text-color="#fff" active-text-color="#ffd04b" :unique-opened="true">
+      <el-aside :width="isCollapes ? '64px' : '200px'">
+        <div class="toggle-button" @click="toggleCollapse">|||</div>
+        <el-menu background-color="#333744" text-color="#fff" active-text-color="#ffd04b" :unique-opened="true"
+                 :collapse="isCollapes" :collapse-transition="false">
           <!--    一级菜单      -->
           <el-submenu :index="item.id + ''" v-for="item in menulist" :key="item.id">
             <!--      一级菜单的模版区域      -->
@@ -43,6 +44,7 @@
     },
     data () {
       return {
+        isCollapes: false,
         menulist: [],
         iconsObj: {
           '125': 'iconfont icon-yonghu1',
@@ -64,6 +66,10 @@
           this.$message.error(res.meta.msg)
         }
         this.menulist = res.data
+      },
+      // 点击按钮折叠/展开菜单栏
+      toggleCollapse () {
+        this.isCollapes = !this.isCollapes
       }
     }
   }
@@ -95,6 +101,16 @@
 
     .el-aside {
       background-color: @background-color-home-aside;
+
+      .toggle-button {
+        background-color: #4A5064;
+        font-size: 10px;
+        line-height: 24px;
+        color: #fff;
+        text-align: center;
+        letter-spacing: 0.2em;
+        cursor: pointer;
+      }
 
       .iconfont {
         margin-right: 10px;
