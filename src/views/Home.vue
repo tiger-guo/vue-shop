@@ -13,17 +13,17 @@
 
         <el-menu background-color="#333744" text-color="#fff" active-text-color="#ffd04b">
           <!--    一级菜单      -->
-          <el-submenu index="1" v-for="item in menulist" :key="item.id">
+          <el-submenu :index="item.id + ''" v-for="item in menulist" :key="item.id">
             <!--      一级菜单的模版区域      -->
             <template slot="title">
-              <i class="el-icon-location"></i>
+              <i :class="iconsObj[item.id]"></i>
               <span>{{item.authName}}</span>
             </template>
 
             <!--     二级菜单       -->
-            <el-menu-item index="1-4" v-for="childItem in item.children" :key="childItem.id">
+            <el-menu-item :index="childItem.id + ''" v-for="childItem in item.children" :key="childItem.id">
               <template slot="title">
-                <i class="el-icon-location"></i>
+                <i class="el-icon-menu"></i>
                 <span>{{childItem.authName}}</span>
               </template>
             </el-menu-item>
@@ -43,7 +43,14 @@
     },
     data () {
       return {
-        menulist: []
+        menulist: [],
+        iconsObj: {
+          '125': 'iconfont icon-yonghu1',
+          '103': 'iconfont icon-tijikongjian',
+          '101': 'iconfont icon-shangpingouwudai2',
+          '102': 'iconfont icon-danju-tianchong',
+          '145': 'iconfont icon-baobiao'
+        }
       }
     },
     methods: {
@@ -57,7 +64,6 @@
           this.$message.error(res.meta.msg)
         }
         this.menulist = res.data
-        console.log(this.menulist)
       }
     }
   }
@@ -89,6 +95,10 @@
 
     .el-aside {
       background-color: @background-color-home-aside;
+
+      .iconfont {
+        margin-right: 10px;
+      }
     }
 
     .el-main {
