@@ -11,7 +11,7 @@
     <el-container>
       <el-aside width="200px">
 
-        <el-menu background-color="#333744" text-color="#fff" active-text-color="#ffd04b">
+        <el-menu background-color="#333744" text-color="#fff" active-text-color="#ffd04b" :unique-opened="true">
           <!--    一级菜单      -->
           <el-submenu :index="item.id + ''" v-for="item in menulist" :key="item.id">
             <!--      一级菜单的模版区域      -->
@@ -98,6 +98,10 @@
 
       .iconfont {
         margin-right: 10px;
+      }
+
+      .el-menu {
+        border-right: 0px;
       }
     }
 
