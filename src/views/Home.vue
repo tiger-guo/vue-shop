@@ -12,7 +12,7 @@
       <el-aside :width="isCollapes ? '64px' : '200px'">
         <div class="toggle-button" @click="toggleCollapse">|||</div>
         <el-menu background-color="#333744" text-color="#fff" active-text-color="#ffd04b" :unique-opened="true"
-                 :collapse="isCollapes" :collapse-transition="false">
+                 :collapse="isCollapes" :collapse-transition="false" :router="true">
           <!--    一级菜单      -->
           <el-submenu :index="item.id + ''" v-for="item in menulist" :key="item.id">
             <!--      一级菜单的模版区域      -->
@@ -22,7 +22,7 @@
             </template>
 
             <!--     二级菜单       -->
-            <el-menu-item :index="childItem.id + ''" v-for="childItem in item.children" :key="childItem.id">
+            <el-menu-item :index="'/' + childItem.path" v-for="childItem in item.children" :key="childItem.id">
               <template slot="title">
                 <i class="el-icon-menu"></i>
                 <span>{{childItem.authName}}</span>
@@ -32,7 +32,9 @@
         </el-menu>
       </el-aside>
 
-      <el-main>Main</el-main>
+      <el-main>
+        <router-view/>
+      </el-main>
     </el-container>
   </el-container>
 </template>

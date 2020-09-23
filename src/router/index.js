@@ -15,6 +15,14 @@ const routes = [
     path: '/home',
     name: 'Home',
     component: _import('Home'),
+    redirect: '/welcome',
+    children: [
+      {
+        path: '/welcome',
+        name: 'Welcome',
+        component: _import('Welcome'),
+      }
+    ]
   },
 ]
 
