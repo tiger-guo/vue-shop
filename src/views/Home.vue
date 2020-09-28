@@ -12,7 +12,7 @@
       <el-aside :width="isCollapes ? '64px' : '200px'">
         <div class="toggle-button" @click="toggleCollapse">|||</div>
         <el-menu background-color="#333744" text-color="#fff" active-text-color="#ffd04b" :unique-opened="true"
-                 :collapse="isCollapes" :collapse-transition="false" :router="true">
+                 :collapse="isCollapes" :collapse-transition="false" :router="true" :default-active="activePath">
           <!--    一级菜单      -->
           <el-submenu :index="item.id + ''" v-for="item in menulist" :key="item.id">
             <!--      一级菜单的模版区域      -->
@@ -22,7 +22,8 @@
             </template>
 
             <!--     二级菜单       -->
-            <el-menu-item :index="'/' + childItem.path" v-for="childItem in item.children" :key="childItem.id">
+            <el-menu-item :index="'/' + childItem.path" v-for="childItem in item.children" :key="childItem.id"
+                          @click="saveNavState('/' + childItem.path)">
               <template slot="title">
                 <i class="el-icon-menu"></i>
                 <span>{{childItem.authName}}</span>
@@ -43,10 +44,14 @@
   export default {
     created () {
       this.getMenuList()
+      this.activePath = window.sessionStorage.getItem('activePath')
     },
     data () {
       return {
+        // 菜单栏是否折叠
         isCollapes: false,
+        // 被激活的链接地址
+        activePath: '',
         menulist: [],
         iconsObj: {
           '125': 'iconfont icon-yonghu1',
@@ -72,6 +77,11 @@
       // 点击按钮折叠/展开菜单栏
       toggleCollapse () {
         this.isCollapes = !this.isCollapes
+      },
+      // 保存链接的激活状态
+      saveNavState (activePath) {
+        window.sessionStorage.setItem('activePath', activePath)
+        this.activePath = activePath
       }
     }
   }

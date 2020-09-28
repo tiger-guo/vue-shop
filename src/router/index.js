@@ -21,6 +21,11 @@ const routes = [
         path: '/welcome',
         name: 'Welcome',
         component: _import('Welcome'),
+      },
+      {
+        path: '/users',
+        name: 'User',
+        component: _import('user/Users'),
       }
     ]
   },
