@@ -40,7 +40,8 @@
         <el-table-column prop="email" label="操作">
           <template slot-scope="scope">
             <el-tooltip effect="dark" content="编辑" placement="top" :enterable="false">
-              <el-button type="primary" icon="el-icon-edit" size="small"></el-button>
+              <el-button type="primary" icon="el-icon-edit" size="small"
+                         @click="showEditUserDialog(scope.row.id)"></el-button>
             </el-tooltip>
             <el-tooltip effect="dark" content="删除" placement="top" :enterable="false">
               <el-button type="danger" icon="el-icon-delete" size="small"></el-button>
@@ -82,6 +83,26 @@
         <el-button @click="addUserDialogVisible = false">取 消</el-button>
       </span>
     </el-dialog>
+
+    <el-dialog title="编辑用户" :visible.sync="editUserDialogVisible" width="30%" center @close="editDialogClosed">
+
+      <el-form label-width="80px" :model="editForm" :rules="addFormRules" ref="editFormRef">
+        <el-form-item label="用户名" prop="username">
+          <el-input v-model="editForm.username" disabled></el-input>
+        </el-form-item>
+        <el-form-item label="邮箱" prop="email">
+          <el-input v-model="editForm.email"></el-input>
+        </el-form-item>
+        <el-form-item label="手机" prop="mobile">
+          <el-input v-model="editForm.mobile"></el-input>
+        </el-form-item>
+      </el-form>
+
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="updateUserInfo">确 定</el-button>
+        <el-button @click="editUserDialogVisible=false">取 消</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -113,13 +134,18 @@
         cb(new Error('请输入合法的手机号'))
       }
       return {
+        // addUserDialogVisible 控制添加用户的对话框
         addUserDialogVisible: false,
-        // 查询用户列表参数
+        // editUserDialogVisible 控制编辑用户的对话框
+        editUserDialogVisible: false,
+        // queryInfo 查询用户列表参数
         queryInfo: {
           query: '',
           pagenum: 1,
           pagesize: 5
         },
+        // editForm 编辑用户表单
+        editForm: {},
         userlist: [],
         total: 0,
         addForm: {},
@@ -225,6 +251,36 @@
           // 添加用户后刷新列表
           this.getUserList()
         })
+      },
+      // showEditUserDialog 展示编辑用户对话框并查询对应用户信息
+      async showEditUserDialog (id) {
+        const { data: res } = await this.$http.get(`users/${id}`)
+        if (res.meta.status !== 200) {
+          return this.$message.error(res.meta.msg)
+        }
+        this.editForm = res.data
+        this.editUserDialogVisible = true
+      },
+      // updateUserInfo 更新用户信息
+      updateUserInfo () {
+        this.$refs.editFormRef.validate(async valid => {
+          if (!valid) return
+
+          const { data: res } = await this.$http.put(`users/${this.editForm.id}`, {
+            email: this.editForm.email,
+            mobile: this.editForm.mobile
+          })
+          if (res.meta.status !== 200) {
+            return this.$message.error(res.meta.msg)
+          }
+          this.editUserDialogVisible = false
+          this.getUserList()
+          this.$message.success('更新用户信息成功')
+        })
+      },
+      // editDialogClosed 监听对话空的关闭事件
+      editDialogClosed () {
+        this.$refs.editFormRef.resetFields()
       }
     }
   }
